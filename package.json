@@ -1,15 +1,16 @@
 {
-  "name": "xploor-project",
+  "name": "tourapp",
   "version": "1.0.0",
   "description": "developing backend with express, mongoDB and postman",
   "main": "app.js",
   "scripts": {
-    "app": "nodemon app.js"
+    "app": "nodemon server.js"
   },
   "author": "seun oshin",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.15"
   }
 }
