@@ -1,14 +1,25 @@
 const fs = require('fs');
 
 exports.checkID = (req, res, next, val) => {
+    console.log(`The Tour ID is: ${val}`); 
     if (req.params.id * 1 > tours.length){
-        res.status(404).json({
-            status: "Page not found",
-            message: "Invalid Page"
-        })
+        return res.status(404).json({
+            status: "fail",
+            message: "Invalid ID"
+        });
     }
     next();
-}
+}; 
+
+exports.checkBody = (req, res, next) => {
+    if (!req.body.name || !req.body.price){
+        return res.status(400).json({
+            status: 'Fail',
+            message: 'Missing Name or Price'
+        });
+    }
+    next();
+};
 // 1) Get all tours from db
 const tours = JSON.parse(fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`));
 exports.getAllTours = (req, res) => {
@@ -18,30 +29,21 @@ exports.getAllTours = (req, res) => {
         data: {
             tours
         }
-
     })
 }
 
 // 2) Get one tour
 exports.getTour = (req, res) => {
-    console.log(req.params);
-
     const id = req.params.id *1;
-    if(id > tours.length) {
-        return res.status(404).json({
-            status: 'fail',
-            message: 'Invalid ID'
-        })
-    }
-    const tour = tours.find(el => el.id === id)
+    const tour = tours.find(el => el.id === id);
     res.status(200).json({
         status:"success",
         data: {
             tour
         }
 
-    })
-}
+    });
+};
 
 // Create Tour
 exports.createTour = (req, res) => {
@@ -61,12 +63,6 @@ exports.createTour = (req, res) => {
 
 // 4) Update one Tour
 exports.updateTour = (req, res) => {
-    if (req.params.id * 1 > tours.length){
-        res.status(404).json({
-            status: "Page not found",
-            message: "Invalid Page"
-        })
-    }
     res.status(200).json({
         status: 'success',
         data: {

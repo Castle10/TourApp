@@ -4,11 +4,13 @@
   "description": "developing backend with express, mongoDB and postman",
   "main": "app.js",
   "scripts": {
-    "app": "nodemon server.js"
+    "app": "nodemon server.js",
+    "app:prod": "NODE_ENV=production nodemon server.js"
   },
   "author": "seun oshin",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.0.0",
     "express": "^4.17.1",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.15"
